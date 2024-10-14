@@ -89,6 +89,11 @@ public class ThreadLocalLogTrace implements LogTrace {
     private void releaseTraceId() {
         TraceId traceId = traceIdHolder.get();
         if (traceId.isFirstLevel()) {
+            /*
+                - 쓰레드 풀을 사용하는 경우 심각한 문제 발생
+                - 각 쓰레드마다 개별적인 저장소를 가지고 있기 때문에 이전에 사용했던 쓰레드가 다시 사용될 시,
+                - 엉뚱한 데이터를 사용할 수 있음
+             */
             traceIdHolder.remove(); // destroy
         } else {
             traceIdHolder.set(traceId.createPreviousId());
