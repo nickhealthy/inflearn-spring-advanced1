@@ -1,5 +1,8 @@
 package hello.advanced.trace.strategy;
 
+import hello.advanced.trace.strategy.code.StrategyLogic1;
+import hello.advanced.trace.strategy.code.StrategyLogic2;
+import hello.advanced.trace.strategy.code.strategy.ContextV1;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
@@ -33,6 +36,24 @@ public class ContextV1Test {
         long endTime = System.currentTimeMillis();
         long resultTime = endTime - startTime;
         log.info("resultTime = {}", resultTime);
+    }
+
+    /**
+     * 전략 패턴 적용
+     *
+     * 코드를 보면 의존관계 주입을 통해 ContextV1에 Strategy의 구현체를 주입한다.
+     * 이렇게 해서 원하는 모양으로 조립하고 난 다음에 Context 안에 원하는 전략을 주입한다.
+     */
+    @Test
+    void strategyV1() {
+        StrategyLogic1 strategyLogic1 = new StrategyLogic1();
+        ContextV1 contextV1 = new ContextV1(strategyLogic1);
+        contextV1.execute();
+
+        StrategyLogic2 strategyLogic2 = new StrategyLogic2();
+        ContextV1 contextV2 = new ContextV1(strategyLogic2);
+        contextV2.execute();
+
     }
 
 }
