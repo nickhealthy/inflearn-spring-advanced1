@@ -10,7 +10,7 @@ public class OrderControllerV0_1 {
 
     private final OrderServiceV0_1 orderService;
 
-    @GetMapping("/v0/request")
+    @GetMapping("/v0_1/request")
     public String request(String itemId) {
         orderService.orderItem(itemId);
         return "success";
